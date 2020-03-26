@@ -45,14 +45,14 @@ index db0a6bfb..26ccf1a5 100644
 -    DESTINATION "${CMAKE_INSTALL_MANDIR}/man1"
 -  )
 -  install(DIRECTORY "${PROJECT_SOURCE_DIR}/etc/"
--    DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/uncrustify"
+-    DESTINATION "${CMAKE_INSTALL_DOCDIR}/examples"
 -    FILES_MATCHING PATTERN "*.cfg"
 -  )
 +  # install(FILES "${CMAKE_CURRENT_BINARY_DIR}/uncrustify.1"
 +  #   DESTINATION "${CMAKE_INSTALL_MANDIR}/man1"
 +  # )
 +  # install(DIRECTORY "${PROJECT_SOURCE_DIR}/etc/"
-+  #   DESTINATION "${CMAKE_INSTALL_DATAROOTDIR}/uncrustify"
++  #   DESTINATION "${CMAKE_INSTALL_DOCDIR}/examples"
 +  #   FILES_MATCHING PATTERN "*.cfg"
 +  # )
  endif()

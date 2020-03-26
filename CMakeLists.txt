@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.5)
 
 project(uncrustify_vendor)
 
@@ -37,13 +37,18 @@ macro(build_uncrustify)
   endif()
 
   include(ExternalProject)
-  find_package(Patch REQUIRED)
+
+  if(WIN32)
+    set(patch_exe patch.exe)
+  else()
+    set(patch_exe patch)
+  endif()
 
   # Pinning to tip of master at the time of a desired bugfix
-  set(uncrustify_version 45b836cff040594994d364ad6fd3f04adc890a26)
-  set(uncrustify_version_hash 7cc32ad800c8d639bdf145e2a113a66b)
-  # Get uncrustify 0.68.1
-  ExternalProject_Add(uncrustify-0.68.1
+  set(uncrustify_version 672f838d7ce23f7a30e8ce02d1e9000d5f3460c4)
+  set(uncrustify_version_hash 79ac0f85694890e13bb39e3afef7bae4)
+  # Get uncrustify 0.70.1
+  ExternalProject_Add(uncrustify-0.70.1
     URL https://github.com/uncrustify/uncrustify/archive/${uncrustify_version}.tar.gz
     URL_MD5 ${uncrustify_version_hash}
     TIMEOUT 600
@@ -52,7 +57,7 @@ macro(build_uncrustify)
       ${extra_cmake_args}
       -Wno-dev
     PATCH_COMMAND
-      ${Patch_EXECUTABLE} -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/install-patch.diff
+      ${patch_exe} -p1 -N < ${CMAKE_CURRENT_SOURCE_DIR}/install-patch.diff
   )
 
   # The external project will install to the build folder, but we'll install that on make install.
